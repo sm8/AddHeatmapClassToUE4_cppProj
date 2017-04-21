@@ -1,0 +1,9 @@
+Debug
+Release
+ipch
+.vs
+Build
+Intermediate
+Binaries
+Logs
+Saved

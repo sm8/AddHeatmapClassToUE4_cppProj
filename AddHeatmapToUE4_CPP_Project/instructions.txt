@@ -1,0 +1,43 @@
+This program COPIES the CreateHeatmap Class to a selected UE4 C++ Project.
+
+
+Select the Visual Studio solution file and then ALL files, and 'select' folders are COPIED to a DIFFERENT folder, with the 'new' name.
+
+
+
+By pressing F1, a Dialog is opened for you to:
+
+    SELECT a Visual Studio Solution (.sln) file
+
+
+
+Another Dialog will then ask for the 'NEW' solution name AND the folder to COPY to.
+
+
+
+All required FILES will be COPIED.
+
+Any .sln, .uproject, .h/.cpp, .cs files will be RENAMED and ALL references from 'old' to 'new' will be changed WITHIN each file.
+
+ALL references from 'old' to 'new' will be changed WITHIN each .ini file too.
+
+The CreateHeatmap C++ Class files will be copied too.
+
+
+In addition, a 'REDIRECT' will be ADDED to the DefaultEngine.ini file. 
+
+The DefaultInput.ini will also be updated so that a Key press will create a Heatmap.png file, based on ALL player movement.
+
+
+
+AFTER completion, please RIGHT-CLICK over the .uproject file, and select 'Generate Visual Studio project files'.
+
+
+
+Font size can be increased / decreased by pressing + or - on the Numeric keypad.
+
+
+
+Note: this program is based on:
+
+URL: https://answers.unrealengine.com/questions/242407/renaming-a-c-project.html
