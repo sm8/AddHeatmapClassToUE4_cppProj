@@ -247,10 +247,8 @@ void addRedirect(const char *oldS, const char *newS, vector <string>&lines) {
 	lines.push_back(t.c_str());
 }
 
-//vector <string> replaceStrInTextFile(const char *sfn, const char *oldS, const char *newS, bool chgUpperCase = false) {
 void replaceStrInTextFile(const char *sfn, const char *oldS, const char *newS, vector <string>&lines, bool chgUpperCase = false) {
 	char ln[MAX_LINE_SIZE];
-//	vector <string> lines;
 	string tmp, fn, strOldS = oldS, strNewS = newS;
 	fstream solFile;
 	char u1[MAX_SOL_NAME_SIZE], u2[MAX_SOL_NAME_SIZE];
@@ -296,10 +294,11 @@ void replaceStrInTextFile(const char *sfn, const char *oldS, const char *newS, v
 			string mappedKey;
 			mappedKey = char(key + 'A');  //has to be 'split-up' to work, as NO ctor takes a char
 			lines.push_back("+AxisMappings=(AxisName=\"SaveHeatmap\",Key=" + mappedKey + ",Scale=1.000000)");
+			readMe.push_back("Remember to DRAG a CreatHeatmap obj, from C++ Classes, to the  UE4 Editor.");
+			readMe.push_back("\nAfter moving the Player object, Press key: " + mappedKey + " to create the Heatmap PNG file.");
 		}
 	}
 	solFile.close();
-//	return lines;
 }
 
 void outputTxtToFile(const char *s, const std::vector<std::string> &lines) {
@@ -555,12 +554,10 @@ LRESULT CALLBACK DlgProc(HWND hWndDlg, UINT Msg, WPARAM wParam, LPARAM lParam){ 
 						if (GetLastError() == ERROR_ALREADY_EXISTS)
 							errorMsg("Error: Output Directory Already exists!");
 						else {
-							createREADME(f);
-//							strcpy_s(t, dir);	//currDir 'loses' string!!! ADDED for Debug version!
 							processFiles(dir, f, "");
+							createREADME(f);
 							createHeatmapH(f, newSolution);
 							createHeatmapCPP(f, newSolution);
-//							strcpy(dir, t);	//**** RESTORE dir!!!
 							successFbk.push_back("Copying completed. Check " + (string)f);
 							feedback.clear();
 							for (int i = 0; i < (int)successFbk.size(); i++)
