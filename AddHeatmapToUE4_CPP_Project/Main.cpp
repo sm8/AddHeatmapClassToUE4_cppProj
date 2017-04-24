@@ -291,10 +291,10 @@ void replaceStrInTextFile(const char *sfn, const char *oldS, const char *newS, v
 		if ((int)tmp.find("DefaultInput.ini") > 0 && !axisMappingAlreadySet) {	//add Axis Binding
 			int key = 'H' - 'A';	//start at H key axis mapping
 			while (keys[key]) key++;	//find available key
-			string mappedKey;
-			mappedKey = char(key + 'A');  //has to be 'split-up' to work, as NO ctor takes a char
+			string mappedKey;	//has to be 'split-up' to work, as NO ctor takes a char
+			mappedKey = char(key + 'A');  
 			lines.push_back("+AxisMappings=(AxisName=\"SaveHeatmap\",Key=" + mappedKey + ",Scale=1.000000)");
-			readMe.push_back("Remember to DRAG a CreatHeatmap obj, from C++ Classes, to the  UE4 Editor.");
+			readMe.push_back("From the UE4 Editor, remember to DRAG a CreatHeatmap obj, from C++ Classes, in the game.");
 			readMe.push_back("\nAfter moving the Player object, Press key: " + mappedKey + " to create the Heatmap PNG file.");
 		}
 	}

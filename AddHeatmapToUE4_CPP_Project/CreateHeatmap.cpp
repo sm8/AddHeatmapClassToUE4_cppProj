@@ -169,13 +169,25 @@ void ACreateHeatmap::saveHeatmap(){
 		uint8 *pixels = createHeatMapData();
 
 		FString p = FPlatformMisc::GameDir();	//get base folder of project
-		FFileHelper::SaveStringToFile(allPlayerPos, *FString::Printf(TEXT("%sHeatmapPos.txt"), *p)); //save pos & dt
-	//	outputArrayCSVfile(w, h, pixels, p + "Heatmap.csv");	//for testing / debugging
+		FString playerPosStr = convertPlayerPosToString();
+//		FFileHelper::SaveStringToFile(allPlayerPos, *FString::Printf(TEXT("%sHeatmapPos.txt"), *p)); //save pos & dt
+		FFileHelper::SaveStringToFile(playerPosStr, *FString::Printf(TEXT("%sHeatmapPos.txt"), *p)); //save pos & dt
+//		outputArrayCSVfile(w, h, pixels, p + "Heatmap.csv");	//for testing / debugging
 		SaveTexture2DDebug(pixels, w, h, p + "Heatmap.png");	//create Heatmap as PNG
 		heatMapProcessed = true;
 		clearArrays(pixels);
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, *FString::Printf(TEXT("Heatmap created in: %sHeatmap.png"), *p));
 	}
+}
+
+FString ACreateHeatmap::convertPlayerPosToString() {
+	FString playerPosAsStr = "";
+	for (int i = 0; i < playerPos.Num(); i++) {	//process each player pos
+		PosData pd = (PosData)playerPos[i];
+		FString d = FString::Printf(TEXT("%f,%f,%f,%f"), pd.x, pd.y, pd.z, pd.dt);
+		playerPosAsStr += d + "\r\n";	//append for txt output
+	}
+	return playerPosAsStr;
 }
 
 uint8* ACreateHeatmap::createHeatMapData() {
@@ -211,9 +223,9 @@ uint8* ACreateHeatmap::createHeatMapData() {
 
 void ACreateHeatmap::clearArrays(uint8 * pixels){
 	delete pixels;	//clear dyn memory
-	allPlayerPos.Empty();
+//	allPlayerPos.Empty();
 	playerPos.Empty();
-	playerPositions.Empty();
+//	playerPositions.Empty();
 }
 
 //
@@ -268,24 +280,24 @@ float ACreateHeatmap::calcDiffInTime() {
 void ACreateHeatmap::updateLastPositionInArrays(){
 	float diffT = calcDiffInTime();
 	playerPos[playerPos.Num() - 1].dt = diffT;	//change last array time
-	FVector newLocation = player->GetActorLocation();
-	playerPositions.RemoveAt(playerPositions.Num() - 1);	//remove last pos
-	addPlayerPosToTextArray(newLocation, diffT);
+	//FVector newLocation = player->GetActorLocation();
+	//playerPositions.RemoveAt(playerPositions.Num() - 1);	//remove last pos
+	//addPlayerPosToTextArray(newLocation, diffT);
 }
 
 void ACreateHeatmap::updatePositionData(FVector &newLocation){
 	float diffT = calcDiffInTime();
 	PosData p(newLocation.X, newLocation.Y, newLocation.Z, diffT);
 	playerPos.Add(p);	//add to dyn array
-	addPlayerPosToTextArray(newLocation, diffT);
+//	addPlayerPosToTextArray(newLocation, diffT);
 	prevTime = totTime;
 }
 
-void ACreateHeatmap::addPlayerPosToTextArray(FVector &newLocation, float diffT){
-	FString d = FString::Printf(TEXT("%f,%f,%f,%f"), newLocation.X, newLocation.Y, newLocation.Z, diffT);
-	playerPositions.Add(d);	//add to dyn string array
-	allPlayerPos += d + "\r\n";	//append for txt output
-}
+//void ACreateHeatmap::addPlayerPosToTextArray(FVector &newLocation, float diffT){
+//	FString d = FString::Printf(TEXT("%f,%f,%f,%f"), newLocation.X, newLocation.Y, newLocation.Z, diffT);
+//	playerPositions.Add(d);	//add to dyn string array
+//	allPlayerPos += d + "\r\n";	//append for txt output
+//}
 
 unsigned int ACreateHeatmap::getGridPos(float rx, float minXpos, float gx) {
 	float epsilon = 0.001f;	//for possible error in calcs
@@ -322,3 +334,4 @@ void ACreateHeatmap::analyseTextFilePositions() {
 		textFileAnalysed = true;
 	}
 }
+

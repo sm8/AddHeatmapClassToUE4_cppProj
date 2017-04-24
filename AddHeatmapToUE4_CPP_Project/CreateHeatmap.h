@@ -38,8 +38,8 @@ public:
 		PosData(float nx, float ny, float nz, float ndt) { x = nx; y = ny; z = nz; dt = ndt; }
 	};
 	TArray<PosData> playerPos;
-	TArray<FString> playerPositions;
-	FString allPlayerPos;
+	//TArray<FString> playerPositions;
+	//FString allPlayerPos;
 	float maxX, maxY, minX, minY, playerRad, chkSqVal;
 	unsigned int w, h;
 	struct ActorAndBounds {
@@ -74,5 +74,7 @@ public:
 	AActor *platform;
 	bool heatMapProcessed, textFileAnalysed;
 	const int BPP = 4; //Bytes per pixel for PNG output
+	FString convertPlayerPosToString();
 };
+
 
