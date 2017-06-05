@@ -58,7 +58,7 @@ public:
 	void addStaticBoundsToHeatmap(uint8 *pixels, float gx, float gy);
 	void set32BitPixel(uint8 *pixels, int pos, uint8 r, uint8 g, uint8 b, uint8 a);
 	
-	template <class T>
+	template <class T>  //so any number data type can be used
 	void outputArrayCSVfile(int w, int h, T *pixels, FString filename);
 
 	void updateLastPositionInArrays();

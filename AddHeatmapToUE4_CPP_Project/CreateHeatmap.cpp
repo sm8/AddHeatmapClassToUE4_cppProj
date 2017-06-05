@@ -184,11 +184,11 @@ void ACreateHeatmap::Tick( float DeltaTime ){
 
 void ACreateHeatmap::saveHeatmap(){
 	if (!heatMapProcessed) {
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, TEXT("Heatmap data being generated"));
 		updateLastPositionInArrays();
 		//FString p = FPlatformMisc::GameDir();	//get base folder of project
 		//FFileHelper::SaveStringToFile(allPlayerPos, *FString::Printf(TEXT("%sHeatmapPos.txt"), *p)); //save pos & dt
 		//analyseTextFilePositions();
-		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, TEXT("Heatmap data being generated"));
 		uint8 *pixels = createHeatMapData();
 
 		FString p = FPlatformMisc::GameDir();	//get base folder of project
